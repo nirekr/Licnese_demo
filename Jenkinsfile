@@ -1,50 +1,30 @@
 pipeline {
     agent {
         node{
-            label 'maven-builder'
-            customWorkspace "workspace/${env.JOB_NAME}"
-            }
-    }
-   environment {
-    GITHUB_TOKEN = credentials('github-02')
-   }
-    options {
-        //Keep the 5 most recent builds
-       buildDiscarder(logRotator(numToKeepStr:'5'))
-        timestamps()
-        disableConcurrentBuilds()    
+          label 'maven-builder'
+          //label 'builder-08'
+          customWorkspace "workspace/${env.JOB_NAME}"
+        }
     }
     tools {
         maven 'linux-maven-3.3.9'
         jdk 'linux-jdk1.8.0_102'
     }
-     stages {
-        stage("CopyArtifacts") {
-           steps {
-             script {
-                      def externalCopyArtifacts = load("copyArtifacts.groovy")    
-                      externalCopyArtifacts()
-                }
-             }
-       }
-    
-       stage("License") {
-            steps {
-                     sh 'license=($(grep -oP '(?<=license>)[^<]+' "**/pom.xml"))'
-
-             }  
-      
+    options { 
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+        timestamps()
     }
-     post {
-         success {
-            LicenseSuccessEmail()
-            cleanWorkspace() 
+    stages {
+        stage('License check') {
+            steps {
+                checkLicense()
+              
+            }
         }
-         failure {
-            failureEmail()
-            cleanWorkspace() 
-         }
-                 
-        
+    }
+    post {
+        always {
+            cleanWorkspace()   
+        }
     }
 }
