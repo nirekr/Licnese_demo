@@ -1,3 +1,3 @@
 # Licnese_demo
 
-Initial file for testing purposes
+To check whether the license exists or not in pom file
