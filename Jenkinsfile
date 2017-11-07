@@ -17,7 +17,7 @@ pipeline {
     stages {
         stage('Stable check') {
             steps {
-               checkstablebranch()
+               checkstablebranches()
               
             }
         }
