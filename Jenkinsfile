@@ -15,9 +15,9 @@ pipeline {
         timestamps()
     }
     stages {
-        stage('License check') {
+        stage('Stable check') {
             steps {
-                checkLicense()
+               checkstablebranch()
               
             }
         }
