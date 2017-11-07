@@ -15,7 +15,7 @@ pipeline {
         timestamps()
     }
     stages {
-        stage('Stable check') {
+        stage('Stable Branch') {
             steps {
                checkstablebranches()
               
