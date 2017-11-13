@@ -20,12 +20,12 @@ pipeline {
               checkstablebranches()
             }
         }
-        stage('Get Collaborators') {
-            steps {
-               collaborators()
+        //stage('Get Collaborators') {
+          //  steps {
+             //  collaborators()
               
-            }
-        }
+           // }
+       // }
     }
     post {
         always {
