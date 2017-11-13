@@ -15,12 +15,11 @@ pipeline {
         timestamps()
     }
     stages {
-        //stage('Stable Branch') {
-           // steps {
-             //  checkstablebranches()
-              
-           // }
-       // }
+        stage('Stable Branch') {
+            steps {
+              checkstablebranches()
+            }
+        }
         stage('Get Collaborators') {
             steps {
                collaborators()
